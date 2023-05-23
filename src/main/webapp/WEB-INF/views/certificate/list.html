@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>증명서발급목록</title>
+</head>
+<body>
+<h1>증명서 조회 목록</h1>
+<hr>
+<table border="1" style="width: 80%; text-align: center; border-collapse: collapse">
+    <tr>
+        <th></th>
+        <th>조회 증서 발급번호</th>
+        <th>조회 시간</th>
+        <th>조회 증서 종류</th>
+    </tr>
+    <tr th:each="list : ${lists}">
+        <td th:text="${(curPage - 1)*10 + listStat.index + 1}"></td>
+        <td th:text="${list.certificateConfirmationNumber}"></td>
+        <td th:text="${#temporals.format(list.certificateIssueDate, 'yyyy-MM-dd')}"></td>
+        <td th:text="${list.certificateTypeCode}"></td>
+    </tr>
+</table>
+<hr>
+<div>
+    <button th:onclick="|location.href='@{/certificate/{id}(id = ${serialNumber}, page=1)}'|">&lt&lt</button>
+    <button th:onclick="|location.href='@{/certificate/{id}(id = ${serialNumber}, page=${(curPage - 10)/10*10+1})})}'|"
+            th:disabled="${curPage <= 10}">&lt</button>
+    <span th:if="${lists.totalPages > 0}" th:each="pageNumber : ${pageNumbers}">
+        <button th:onclick="|location.href='@{/certificate/{id}(id = ${serialNumber}, page=${pageNumber})}'|">
+            <span th:text="${pageNumber}"></span>
+        </button>
+    </span>
+    <button th:onclick="|location.href='@{/certificate/{id}(id = ${serialNumber}, page=${(curPage + 10)/10*10+1})})}'|"
+            th:disabled="${(curPage - 1) / 10 == (lists.totalPages -1) /10}">&gt</button>
+    <button th:onclick="|location.href='@{/certificate/{id}(id = ${serialNumber}, page=${lists.totalPages == 0 ? 1 : lists.totalPages})}'|">&gt&gt</button>
+</div>
+</body>
+</html>

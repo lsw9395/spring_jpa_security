@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>NHN 주민 정보</title>
+</head>
+<body>
+<h1>NHN 주민 정보</h1>
+<hr>
+<button th:onclick="|location.href='@{/resident/{id}/delete(id=${residentSerialNumber})}'|">주민 삭제하기</button>
+<hr>
+<h3>1. 상세정보</h3>
+<table>
+    <tr><th style="float:left;">- 이름</th><td th:text="${resident.name}"></td></tr>
+    <tr><th style="float:left;">- 주민번호</th><td th:text="${resident.residentRegistrationNumber}"></td></tr>
+    <tr><th style="float:left;">- 성별</th><td th:text="${resident.genderCode}"></td></tr>
+</table>
+<br/>
+<h3>2. 증명서 발급</h3>
+<table border="1" width="80%" style="border-collapse: collapse">
+    <tr>
+        <th></th>
+        <th>증명서 종류</th>
+        <th>발급받기</th>
+        <th>조회하기</th>
+    </tr>
+    <tr>
+        <td rowspan="2">증명서 발급</td>
+        <td>가족관계증명서</td>
+        <td><a th:href="@{/certificate/{id}/relation(id=${residentSerialNumber})}">발급받기</a></td>
+        <td>X</td>
+    </tr>
+    <tr>
+        <td>주민등록본</td>
+        <td><a th:href="@{/certificate/{id}/registration(id=${residentSerialNumber})}">발급받기</a></td>
+        <td>X</td>
+    </tr>
+    <tr>
+        <td rowspan="2">신고서 확인</td>
+        <td>출생신고서</td>
+        <td>X</td>
+        <td>
+            <span th:if="${resident.birthReportCode == 0 }">X</span>
+            <span th:unless="${resident.birthReportCode == 0}">
+                <a th:href="@{/certificate/{id}/birth(id=${residentSerialNumber})}">조회하기</a>
+            </span>
+        </td>
+    </tr>
+    <tr>
+        <td>사망신고서</td>
+        <td>X</td>
+        <td>
+            <span th:if="${resident.deathReportCode == 0 }">X</span>
+            <span th:unless="${resident.deathReportCode == 0}">
+                <a th:href="@{/certificate/{id}/death(id=${residentSerialNumber})}">조회하기</a>
+            </span>
+        </td>
+    </tr>
+    <tr>
+        <th colspan="4"><a th:href="@{/certificate/{id}(id=${residentSerialNumber})}">&lt&lt 발급내역 확인하러 가기</a></th>
+    </tr>
+</table>
+</body>
+</html>

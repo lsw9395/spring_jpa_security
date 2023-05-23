@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>사망신고서</title>
+    <link th:href="@{/css/table.css}" href="/css/table.css" rel="stylesheet">
+</head>
+<body>
+<table border="1" style="width: 80%; text-align: center; border-collapse: collapse">
+    <tr>
+        <th colspan="6">사망신고서</th>
+    </tr>
+    <tr>
+        <th colspan="6"
+            th:text="${'신고일 : ' + #temporals.format(certificate.birthDeathReportDate, 'yyyy년 MM월 dd일')}"></th>
+    </tr>
+    <tr>
+        <th rowspan="4">사망자</th>
+        <th colspan="2">성명</th>
+        <td th:text="${certificate.name}"></td>
+        <th>주민등록번호</th>
+        <td th:text="${certificate.registrationNumber}"></td>
+    </tr>
+    <tr>
+        <th colspan="2">사망일시</th>
+        <td colspan="3" th:text="${#temporals.format(certificate.deathDate, 'yyyy년 MM월 dd일  HH시 mm분 ss초') + '(한국시각 : 24시각제로 기재)'}"></td>
+    </tr><tr>
+        <th rowspan="2">사망장소</th>
+        <th>구분</th>
+        <td colspan="3" th:text="${certificate.deathPlaceCode}"></td>
+    </tr>
+    <tr>
+        <th>주소</th>
+        <td colspan="3" th:text="${certificate.deathPlaceAddress}"></td>
+    </tr>
+    <tr>
+        <th rowspan="3">신고인</th>
+        <th colspan="2">성명</th>
+        <td th:text="${certificate.reportResidentName}"></td>
+        <th>주민등록번자격</th>
+        <td th:text="${certificate.reportResidentRegistrationNumber}"></td>
+    </tr>
+    <tr>
+        <th colspan="2">자격</th>
+        <td colspan="3" th:text="${certificate.deathReportQualificationsCode}"></td>
+    </tr>
+    <tr>
+        <th colspan="2">이메일</th>
+        <td th:text="${certificate.email == null ? '' : certificate.email}"></td>
+        <th>전화번호</th>
+        <td th:text="${certificate.phoneNumber}"></td>
+    </tr>
+</table>
+</body>
+</html>

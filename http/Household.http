@@ -1,0 +1,16 @@
+POST /household HTTP/1.1
+Host: localhost:8080
+Content-Type: application/json
+
+{
+    "householdSerialNumber": 100,
+    "householdResidentSerialNumber": 20,
+    "householdCompositionDate": "2020-10-23",
+    "householdCompositionReasonCode": "household 실험용",
+    "currentHouseMovementAddress": "경기도 성남시 분당구 불정로 90번길"
+}
+
+###
+
+DELETE /household/10 HTTP/1.1
+Host: localhost:8080

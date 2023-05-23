@@ -1,0 +1,23 @@
+POST /household/20/movement HTTP/1.1
+Host: localhost:8080
+Content-Type: application/json
+
+{
+  "reportDate": "2023-05-19",
+  "address": "광주 광역시",
+  "lastAddressYn": "Y"
+}
+
+###
+
+PUT /household/10/movement/20221111
+Host: localhost:8080
+Content-Type: application/json
+
+{
+  "lastAddressYn": "N"
+}
+###
+
+DELETE /household/10/movement/20221111
+Host: localhost:8080

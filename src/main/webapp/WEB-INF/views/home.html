@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>홈페이지</title>
+</head>
+<body>
+<h1>홈페이지</h1>
+<hr>
+<button sec:authorize="!hasAuthority('ROLE_USER')" onclick="location.href='/login'">로그인</button>
+<div sec:authorize="hasAuthority('ROLE_USER')">
+    <span th:text="${#authentication.name + '님 안녕하세요. '}"></span>
+    <form method="post" action="/logout">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+        <input type="submit" value="로그아웃">
+    </form>
+</div>
+<hr>
+<span sec:authorize="hasAuthority('ROLE_USER')">
+<ul>
+    <li><a href="/resident">주민목록</a></li>
+</ul>
+</span>
+</body>
+</html>

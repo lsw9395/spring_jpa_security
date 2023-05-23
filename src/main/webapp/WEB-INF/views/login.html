@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>로그인</title>
+</head>
+<body>
+<h1>로그인</h1>
+<hr>
+    <form method="post" action="/login">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/><br/>
+        <table style="width: 307px">
+            <tr style="width: 100%;">
+                <td style="width: 30%">ID</td>
+                <td style="width: 70%"><input type="text" name="id" size="30"/></td>
+            </tr>
+            <tr style="width: 100%;">
+                <td style="width: 30%">PASSWORD</td>
+                <td style="width: 70%"><input type="password" name="password" size="30"/></td>
+            </tr>
+            <tr><th colspan="2"><input type="submit" value="로그인" style="width: 100%"></th></tr>
+        </table>
+    </form>
+<button th:onclick="|location.href='@{https://github.com/login/oauth/authorize(client_id=${clientId}, scope=${scope})}'|"
+        style="width: 303px">
+    Login with Github
+</button>
+<br/><br/>
+<div th:if="${param.error != null}" th:switch="${#strings.toString(param.error)}" style="color : red">
+    <span th:case="email">* 연동된 이메일이 존재하지 않습니다. 다시 로그인 해주십시오. *</span>
+    <span th:case="*">* 잘못된 아이디/비밀번호 입니다. *</span>
+</div>
+
+    <div>github 로그인을 사용 시에는 http>Resident.http>에서 사용자를 등록할때 이메일을 깃허브 이메일과 똑같이 설정하여 등록 후 사용해주세요.</div>
+    <div>주민들의 아이디는 기본적으로 user+'residentSerialNumber'이며 남길동씨부터 1~7까지 있습니다. 비밀번호는 "1234"으로 통일됩니다.</div>
+
+</body>
+</html>

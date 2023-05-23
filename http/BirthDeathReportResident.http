@@ -1,0 +1,57 @@
+POST /residents/10/birth HTTP/1.1
+Host: localhost:8080
+Content-Type: application/json
+
+{
+  "residentSerialNumber": 20,
+  "reportDate": "2019-12-31",
+  "reportQualificationsCode" : "father",
+  "emailAddress" : null,
+  "phoneNumber" : "010-1234-1234"
+}
+
+###
+
+PUT /residents/10/birth/11
+Host: localhost:8080
+Content-Type: application/json
+
+{
+  "emailAddress" : null,
+  "phoneNumber" : "010-2345-5678"
+}
+
+###
+
+DELETE /residents/10/birth/11
+Host: localhost:8080
+
+###
+
+POST /residents/10/death HTTP/1.1
+Host: localhost:8080
+Content-Type: application/json
+
+{
+  "residentSerialNumber": 11,
+  "reportDate": "2019-12-31T23:59:59",
+  "reportQualificationsCode" : "father",
+  "emailAddress" : null,
+  "phoneNumber" : "010-1234-1234"
+}
+
+###
+
+PUT /residents/10/death/11
+Host: localhost:8080
+Content-Type: application/json
+
+{
+  "emailAddress" : "asd@nhn.com",
+  "phoneNumber" : "010-2345-5678"
+}
+
+###
+
+DELETE /residents/10/death/11
+Host: localhost:8080

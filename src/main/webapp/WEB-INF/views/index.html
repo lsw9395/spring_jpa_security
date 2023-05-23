@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>NHN Homepage</title>
+</head>
+<body>
+<h1>NHN 주민 목록</h1>
+<hr>
+<table border="1" style="border-collapse: collapse; width: 80%">
+    <tr>
+        <th style="width: 10%"></th>
+        <th style="width: 20%">이름</th>
+        <th style="width: 10%">성별</th>
+        <th style="width: 20%">주민번호</th>
+        <th style="width: 40%">본적지</th>
+    </tr>
+    <tr th:each="resident : ${residents}">
+        <td th:text="${resident.residentSerialNumber}"></td>
+        <td>
+            <a th:href="@{/resident/{serialNumber}(serialNumber=${resident.residentSerialNumber})}"
+               th:text="${resident.name}"></a>
+        </td>
+        <td th:text="${resident.genderCode}"></td>
+        <td th:text="${resident.residentRegistrationNumber}"></td>
+        <td th:text="${resident.registrationBaseAddress}"></td>
+    </tr>
+</table>
+<hr>
+<div>
+    <button th:onclick="|location.href='@{/resident(page=1)}'|">&lt&lt</button>
+    <button th:onclick="|location.href='@{/resident(page=${(curPage - 10)/10*10+1})})}'|"
+            th:disabled="${curPage <= 10}">&lt</button>
+    <span th:if="${totalPages > 0}" th:each="pageNumber : ${pageNumbers}">
+        <button th:onclick="|location.href='@{/resident(page=${pageNumber})}'|">
+            <span th:text="${pageNumber}"></span>
+        </button>
+    </span>
+    <button th:onclick="|location.href='@{/resident(page=${(curPage + 10)/10*10+1})})}'|"
+            th:disabled="${(curPage - 1) / 10 == (totalPages -1) /10}">&gt</button>
+    <button th:onclick="|location.href='@{/resident(page=${totalPages == 0 ? 1 : totalPages})}'|">&gt&gt</button>
+</div>
+</body>
+</html>

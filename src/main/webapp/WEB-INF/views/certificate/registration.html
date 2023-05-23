@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>주민등록등본</title>
+    <link th:href="@{/css/table.css}" href="/css/table.css" rel="stylesheet">
+</head>
+<body>
+<table>
+    <tr><th>이름</th><td th:text="${certificate.resident.name}"></td></tr>
+    <tr><th>주민등록번호</th><td th:text="${certificate.resident.residentRegistrationNumber}"></td></tr>
+    <tr><th>성별</th><td th:text="${certificate.resident.genderCode}"></td></tr>
+    <tr><th>출생일</th><td th:text="${certificate.resident.birthDate}"></td></tr>
+    <tr><th>본적지</th><td th:text="${certificate.resident.registrationBaseAddress}"></td></tr>
+</table>
+<table border="1" style="width: 80%; text-align: center; border-collapse: collapse" th:if="${certificate.certificateIssueDate != null}">
+    <tr>
+        <th colspan="5">주민등록등본</th>
+    </tr>
+    <tr><th colspan="5" th:text="${'발급일 : ' + #temporals.format(certificate.certificateIssueDate, 'yyyy-MM-dd') +
+                                        ', 증명서확인번호 : ' + certificate.certificateConfirmationNumber}"></th>
+    </tr>
+    <tr>
+        <th colspan="1">세대주 성명</th>
+        <td colspan="1" th:text="${certificate.name}"></td>
+        <th colspan="1">세대구성사유 및 일자</th>
+        <td colspan="2" th:text="${certificate.compositionReasonCode + '/' + #temporals.format(certificate.compositionDate, 'yyyy-MM-dd')}"></td>
+    </tr>
+    <tr>
+        <th colspan="3">주소</th>
+        <th colspan="2">신고일</th>
+    </tr>
+    <tr th:each="address : ${certificate.address}">
+        <td th:text="${address.lastAddressYn}"></td>
+        <td colspan="2" th:text="${address.houseMovementAddress}"></td>
+        <td colspan="2" th:text="${#temporals.format(address.houseMovementReportDate, 'yyyy-MM-dd')}"></td>
+    </tr>
+    <tr>
+        <th>세대주 관계</th>
+        <th>성명</th>
+        <th>주민등록번호</th>
+        <th>신고일</th>
+        <th>변동사유</th>
+    </tr>
+    <tr th:each="resident:${certificate.composition}">
+        <td th:text="${resident.householdRelationshipCode}"></td>
+        <td th:text="${resident.name}"></td>
+        <td th:text="${resident.registrationNumber}"></td>
+        <td th:text="${#temporals.format(resident.reportDate, 'yyyy-MM-dd')}"></td>
+        <td th:text="${resident.householdCompositionChangeReasonCode}"></td>
+    </tr>
+</table>
+</body>
+</html>

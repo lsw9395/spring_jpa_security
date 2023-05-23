@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>출생신고서</title>
+    <link th:href="@{/css/table.css}" href="/css/table.css" rel="stylesheet">
+</head>
+<body>
+<table border="1" style="width: 80%; text-align: center; border-collapse: collapse">
+    <tr>
+        <th colspan="6">출생신고서</th>
+    </tr>
+    <tr>
+        <th colspan="6"
+            th:text="${'신고일 : ' + #temporals.format(certificate.birthDeathReportDate, 'yyyy년 MM월 dd일')}"></th>
+    </tr>
+    <tr>
+        <th rowspan="4">출생자</th>
+        <th colspan="2">성명</th>
+        <td th:text="${certificate.name}"></td>
+        <th>성별</th>
+        <td th:text="${certificate.genderCode}"></td>
+    </tr>
+    <tr>
+        <th colspan="2">출생일시</th>
+        <td colspan="3" th:text="${#temporals.format(certificate.birthDate, 'yyyy년 MM월 dd일  HH시 mm분 ss초') + '(한국시각 : 24시각제로 기재)'}"></td>
+    </tr><tr>
+        <th colspan="2">출생장소</th>
+        <td colspan="3" th:text="${certificate.birthPlaceCode}"></td>
+    </tr><tr>
+        <th colspan="2">등록기준지(본적)</th>
+        <td colspan="3" th:text="${certificate.registrationBaseAddress}"></td>
+    </tr>
+    <tr>
+        <th rowspan="2">부모</th>
+        <th>부</th>
+        <th>성명</th><td th:text="${certificate.father == null ? 'X' : certificate.father.name}"></td>
+        <th>주민등록번호</th><td th:text="${certificate.father == null ? '' : certificate.father.registrationNumber}"></td>
+    </tr>
+    <tr>
+        <th>모</th>
+        <th>성명</th><td th:text="${certificate.mother == null ? 'X' : certificate.mother.name}"></td>
+        <th>주민등록번호</th><td th:text="${certificate.mother == null ? '' : certificate.mother.registrationNumber}"></td>
+    </tr>
+    <tr>
+        <th rowspan="3">신고인</th>
+        <th colspan="2">성명</th>
+        <td th:text="${certificate.reportResidentName}"></td>
+        <th>주민등록번자격</th>
+        <td th:text="${certificate.reportResidentRegistrationNumber}"></td>
+    </tr>
+    <tr>
+        <th colspan="2">자격</th>
+        <td colspan="3" th:text="${certificate.birthReportQualificationsCode}"></td>
+    </tr>
+    <tr>
+        <th colspan="2">이메일</th>
+        <td th:text="${certificate.email == null ? '' : certificate.email}"></td>
+        <th>전화번호</th>
+        <td th:text="${certificate.phoneNumber}"></td>
+    </tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>가족관계증명서</title>
+    <link th:href="@{/css/table.css}" href="/css/table.css" rel="stylesheet">
+</head>
+<body>
+<table border="1" style="width: 80%; text-align: center; border-collapse: collapse">
+    <tr>
+        <th colspan="5">가족관계증명서</th>
+    </tr>
+    <tr><th colspan="5" th:text="${'발급일 : ' + #temporals.format(certificate.certificateIssueDate, 'yyyy-MM-dd') +
+                                        ', 증명서확인번호 : ' + certificate.certificateConfirmationNumber}"></th> </tr>
+    <tr><th colspan="2">등록기준지(본적)</th><td colspan="3" th:text="${certificate.registrationAddress}"></td></tr>
+    <tr>
+        <th>구분</th>
+        <th>성명</th>
+        <th>출생연월일</th>
+        <th>주민등록번호</th>
+        <th>성별</th>
+    </tr>
+    <tr>
+        <td>본인</td>
+        <td th:text="${certificate.name}"></td>
+        <td th:text="${#temporals.format(certificate.birthDate, 'yyyy년 MM월 dd일')}"></td>
+        <td th:text="${certificate.registrationNumber}"></td>
+        <td th:text="${certificate.genderCode}"></td>
+    </tr>
+    <tr th:each="resident:${certificate.family}">
+        <td th:text="${resident.role}"></td>
+        <td th:text="${resident.name}"></td>
+        <td th:text="${#temporals.format(resident.birthDate, 'yyyy년 MM월 dd일')}"></td>
+        <td th:text="${resident.registrationNumber}"></td>
+        <td th:text="${resident.genderCode}"></td>
+    </tr>
+</table>
+</body>
+</html>
